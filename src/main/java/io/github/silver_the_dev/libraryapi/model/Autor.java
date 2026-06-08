@@ -2,6 +2,7 @@ package io.github.silver_the_dev.libraryapi.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "autor")
 @Data
+@ToString
 public class Autor {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -22,6 +24,7 @@ public class Autor {
     @Column(name = "nacionalidade", length = 50, nullable = false)
     private String nacionalidade;
 
-    @OneToMany(mappedBy = "autor")
+//    @OneToMany(mappedBy = "autor")
+    @Transient
     private List<Livro> livros;
 }
