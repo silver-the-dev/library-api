@@ -10,10 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Optional;
 import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class LivroRepositoryTest {
@@ -33,6 +30,24 @@ class LivroRepositoryTest {
         Autor autor = autorRepository
                 .findById(UUID.fromString("0046fdd6-5fd5-481b-938a-32cf63bf229a"))
                 .orElse(null);
+        livro.setAutor(autor);
+        livroRepository.save(livro);
+    }
+
+    @Test
+    void salvarCascade(){
+        Livro livro = new Livro();
+        livro.setTitulo("Percy Jackson e Os Olimpianos");
+        livro.setDataPublicacao(LocalDate.of(2005, Month.JUNE, 28));
+        livro.setIsbn("91287-48973");
+        livro.setGenero(GeneroLivro.FICCAO);
+        livro.setPreco(BigDecimal.valueOf(50.00));
+
+        Autor autor = new Autor();
+        autor.setNome("Rick Riordan");
+        autor.setNacionalidade("Americano");
+        autor.setDataNascimento(LocalDate.of(1964, Month.JUNE, 5));
+
         livro.setAutor(autor);
         livroRepository.save(livro);
     }
